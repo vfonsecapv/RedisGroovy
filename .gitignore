@@ -8,4 +8,5 @@
 .iml
 .rdb
 **/.DS_Store
+.DS_Store
 /build/
