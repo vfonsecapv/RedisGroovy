@@ -16,6 +16,4 @@ public class User {
     public void setEmail(String email) { this.email = email }
 
     public String getEmail() { email }
-
-    public String toString() { name + " " + email }
 }
