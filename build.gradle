@@ -1,0 +1,62 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.5.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath 'io.spring.gradle:dependency-management-plugin:0.5.1.RELEASE'
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management'
+
+jar {
+    baseName = 'redisgroovy'
+    version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.spring.platform:platform-bom:1.1.2.RELEASE'
+    }
+}
+
+dependencies {
+    springBoot {
+        mainClass = 'redisgroovy.TesteRedisApplication'
+    }
+
+    compile("org.springframework.boot:spring-boot-starter-redis:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+
+    compile("org.codehaus.groovy:groovy-all")
+
+    compile("redis.clients:jedis:2.6.2")
+
+    compile("org.codehaus.jackson:jackson-core-asl:1.9.13")
+    compile("org.codehaus.jackson:jackson-mapper-asl:1.9.13")
+
+    compile("com.fasterxml.jackson.core:jackson-core:2.5.4")
+    compile("com.fasterxml.jackson.core:jackson-annotations:2.5.4")
+    compile("com.fasterxml.jackson.core:jackson-databind:2.5.4")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
